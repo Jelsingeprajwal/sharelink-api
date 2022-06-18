@@ -31,7 +31,7 @@ router.post('/', (req, res) => {
       size: req.file.size
     });
     const response = await file.save();
-    res.json({ file: `${process.env.APP_BASE_URL}/files/${response.uuid}` });// does no work on localhost... APP_BASE_URL doesn't end with /
+    res.json({ file: `${process.env.APP_BASE_URL}files/${response.uuid}` });// does no work on localhost... APP_BASE_URL doesn't end with /
   });
 });
 
@@ -60,7 +60,7 @@ router.post('/send', async (req, res) => {
     text: `${emailFrom} shared a file with you.`,
     html: require('../services/emailTemplate')({
       emailFrom,
-      downloadLink: `${process.env.APP_BASE_URL}/files/${file.uuid}?source=email`,
+      downloadLink: `${process.env.APP_BASE_URL}files/${file.uuid}?source=email`,
       size: parseInt(file.size / 1000) + ' KB',
       expires: '24 hours'
     })
